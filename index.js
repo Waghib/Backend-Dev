@@ -1,32 +1,31 @@
 const express = require('express');
-const path = require('path');
-
 const app = express();
 
-const publicPath = path.join(__dirname, 'public');
-
-app.set('view engine', 'ejs');
-
-app.get('/profile', (req, res) => {
-    const user = {
-        name: 'John Doe',
-        age: 30,
-        email: 'abc'
+const reqFilter = (req, res, next) => {
+    
+    if(!req.query.age)
+    {
+        return res.send('Please provide age');
     }
-    res.render('profile', {user});
-});
+    else if (req.query.age < 18)
+    {
+        return res.send('You are not allowed to visit this page');
+    }
+    else
+    {
+        next();
+    }
 
+};
+
+app.use(reqFilter);
 
 app.get('/', (req, res) => {
-    res.sendFile(`${publicPath}/index.html`);
+    res.send('Welcome to home page');
 });
 
-app.get('/about', (req, res) => {
-    res.sendFile(`${publicPath}/about.html`);
-});
-
-app.get('*', (req, res) => {
-    res.sendFile(`${publicPath}/404.html`);
+app.get('/users', (req, res) => {
+    res.send('Welcome to users page');
 });
 
 app.listen(3000, () => {
