@@ -6,14 +6,17 @@ const app = express();
 const publicPath = path.join(__dirname, 'public');
 
 
-// app.get('/', (req, res) => {
-//     // res.send('This is a home page');
-// });
+app.get('/', (req, res) => {
+    res.sendFile(`${publicPath}/index.html`);
+});
 
+app.get('/about', (req, res) => {
+    res.sendFile(`${publicPath}/about.html`);
+});
 
-// static function allow us to serve static files
-app.use(express.static(publicPath));
-
+app.get('*', (req, res) => {
+    res.sendFile(`${publicPath}/404.html`);
+});
 
 app.listen(3000, () => {
     console.log('Server is running on port 3000');
