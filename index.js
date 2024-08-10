@@ -5,6 +5,17 @@ const app = express();
 
 const publicPath = path.join(__dirname, 'public');
 
+app.set('view engine', 'ejs');
+
+app.get('/profile', (req, res) => {
+    const user = {
+        name: 'John Doe',
+        age: 30,
+        email: 'abc'
+    }
+    res.render('profile', {user});
+});
+
 
 app.get('/', (req, res) => {
     res.sendFile(`${publicPath}/index.html`);
