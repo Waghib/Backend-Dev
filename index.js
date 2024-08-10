@@ -1,18 +1,18 @@
 const express = require('express');
+const path = require('path');
+
 const app = express();
 
+const publicPath = path.join(__dirname, 'public');
 
-app.get('/', (req, res) => {
-    res.send('Hi this is a home page!');
-});
 
-app.get('/about', (req, res) => {
-    res.send('This is about page!');
-});
+// app.get('/', (req, res) => {
+//     // res.send('This is a home page');
+// });
 
-app.get('/contact', (req, res) => {
-    res.send('This is contact page!');
-});
+
+// static function allow us to serve static files
+app.use(express.static(publicPath));
 
 
 app.listen(3000, () => {
