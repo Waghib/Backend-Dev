@@ -1,31 +1,38 @@
+const { count } = require('console');
 const express = require('express');
+const path = require('path');
+
 const app = express();
 
-const reqFilter = (req, res, next) => {
-    
-    if(!req.query.age)
-    {
-        return res.send('Please provide age');
-    }
-    else if (req.query.age < 18)
-    {
-        return res.send('You are not allowed to visit this page');
-    }
-    else
-    {
-        next();
-    }
+const publicPath = path.join(__dirname, 'public');
 
-};
+app.set('view engine', 'ejs');
 
-app.use(reqFilter);
-
-app.get('/', (req, res) => {
-    res.send('Welcome to home page');
+app.get('/profile', (req, res) => {
+    const user = {
+        name: 'John Doe',
+        age: 30,
+        email: 'abc@test.com',
+        country: 'USA',   
+        skills: ['HTML', 'CSS', 'JavaScript', 'Node', 'Express', 'MongoDB'],
+    }
+    res.render('profile', {user});
 });
 
-app.get('/users', (req, res) => {
-    res.send('Welcome to users page');
+app.get('/login', (req, res) => {
+    res.render('login');
+});
+
+app.get('/', (req, res) => {
+    res.sendFile(`${publicPath}/index.html`);
+});
+
+app.get('/about', (req, res) => {
+    res.sendFile(`${publicPath}/about.html`);
+});
+
+app.get('*', (req, res) => {
+    res.sendFile(`${publicPath}/404.html`);
 });
 
 app.listen(3000, () => {
