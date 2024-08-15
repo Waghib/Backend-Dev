@@ -1,5 +1,6 @@
 const dbConnect = require('./mongodb');
 const express = require('express');
+const mongodb = require('mongodb');
 const app = express();
 
 // middleware to parse the request body
@@ -26,6 +27,12 @@ app.put('/', async (req, res) => {
         { name: req.body.name },
         { $set: req.body }
     );
+    res.send(result);
+});
+
+app.delete('/:id', async (req, res) => {
+    const data = await dbConnect();
+    const result = await data.deleteOne({ _id: new mongodb.ObjectId(req.params.id) });
     res.send(result);
 });
 

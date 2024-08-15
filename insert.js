@@ -5,14 +5,14 @@ const insertData = async () => {
     let collection = await dbConnect();
     let result = await collection.insertMany(
         [
-            {   name: 'Samsung Galaxy S21',
-                price: 799.99,
+            {   name: 'Samsung 14',
+                price: 7149.99,
                 category: 'Smartphones',
                 brand: 'Samsung'
             }
             ,
-            {   name: 'Samsung Galaxy S20',
-                price: 699.99,
+            {   name: 'Samsung Galaxy 2141',
+                price: 61429.99,
                 category: 'Smartphones',
                 brand: 'Samsung'
             }
