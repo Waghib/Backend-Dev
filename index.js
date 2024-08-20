@@ -1,9 +1,7 @@
 const express = require('express');
 require('./config');
 const product = require('./product');
-
 const app = express();
-
 app.use(express.json());
 
 // app.post('/create', async (req, res) => {
@@ -27,8 +25,6 @@ app.use(express.json());
 //   const result = await product.findByIdAndUpdate(req.params._id, req.body);
 //   res.send(result);
 // });
-
-
 app.get('/search/:key', async (req, res) => {
   const result = await product.find({ 
     $or: [
